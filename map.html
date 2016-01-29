@@ -21,7 +21,6 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.0/lodash.min.js"></script>
       <script src="https://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
       <script src="../../js/leaflet.label.js"></script>
-      <script src="../../js/leaflet.js"></script>
 
 
     <nav>
@@ -51,7 +50,7 @@
 var ref = new Firebase('https://publicdata-parking.firebaseio.com');
 var data
 // read data from the location san_francisco/garages, only once
-ref.child('san_francisco/garages').on('value', function(snapshot){
+ref.child('san_francisco/garages').once('value', function(snapshot){
   data = snapshot.val()
   console.log('data is loaded', data)
   var garages = _.filter(data, function(d){
