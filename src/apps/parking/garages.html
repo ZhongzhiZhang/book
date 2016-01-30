@@ -32,8 +32,9 @@ var ref = new Firebase('https://publicdata-parking.firebaseio.com');
 var data
 
 // read data from the location san_francisco/garages, only once
-ref.child('san_francisco/garages').once('value', function(snapshot){
+ref.child('san_francisco/garages').on('value', function(snapshot){
   data = snapshot.val()
+          $("#garages").empty();
   console.log('data is loaded', data)
 
   // filter the data
@@ -47,8 +48,38 @@ ref.child('san_francisco/garages').once('value', function(snapshot){
 
 function displayGarages(garages){
   // lodash _.forEach https://lodash.com/docs#forEach
+	i = 0
+	j = 100
   _.forEach(garages, function(val, key){
-    $('#garages').append('<li class="collection-item">' + val['friendlyName'] + '</li>')
+    $('#garages').append('<li class="collection-item">' + val.friendlyName + '<p>Open Spaces: '+val.open_spaces+'</p>'+'<p>Total Spaces: '+val['total_spaces']+'</p>'+'<li id = '+i+' class = "collection-item">  </li>'+'<li id = '+j+' class = "collection-item">  </li>'+'</li>')
+ if(val.hours.BEG)
+{	$('#'+i+'').append('<li class="collection-item">'+val.hours.FROM+': '+val.hours.BEG+'~'+val.hours.END+'</li>')}
+else{
+
+for(var hourNumber in val.hours){
+	var hour = val.hours[hourNumber]
+	if(hour.TO)
+	   {
+		$('#'+i+'').append('<li class="collection-item">'+hour.FROM+'~'+hour.TO+': '+hour.BEG+'~'+hour.END+'</li>')
+	   }
+	   else {$('#'+i+'').append('<li class="collection-item">'+hour.FROM+': '+hour.BEG+'~'+hour.END+'</li>')}
+	}
+}
+
+for(var rateNumber in val.rates){
+	var rate = val.rates[rateNumber]
+	if(rate.BEG)
+	{
+		$('#'+j+'').append('<li class="collection-item">'+''+rate.BEG+' ~ '+rate.END+' '+'$'+rate.RATE+' '+rate.RQ+'</li>')
+	}
+	else if(rate.DESC)
+		$('#'+j+'').append('<li class="collection-item">'+''+rate.DESC+' '+'$'+rate.RATE+' '+rate.RQ+'</li>')
+	}
+
+		i = i+1
+
+		j = j+1
+
   })
 }
       </script>
