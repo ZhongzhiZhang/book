@@ -6,7 +6,7 @@ MyComponents.City = React.createClass({
 	   var humid = this.props.city.value.currently.humidity
            var windBearing = this.props.city.value.currently.windBearing
            var windSpeed = this.props.city.value.currently.windSpeed
-           var summary =  this.props.city.value.currently.summary
+           var Summary =  this.props.city.value.currently.summary
 
     return (
       <div className="card">

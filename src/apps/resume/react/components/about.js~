@@ -8,7 +8,7 @@ MyComponents.About = React.createClass({
 	<ul><li>Major: Electrical Engineering</li></ul>
 	<ul><li>Tel: 8583332700</li></ul>
 	<ul><li>Github:  <a href="https://github.com/ZhongzhiZhang">Zhongzhi Zhang</a> </li></ul>
-	 <img src={'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAOUAAAAJGJjN2E2M2YwLWNiZWYtNGE2ZS04YzQxLTExNWFmM2Y1M2E5ZQ.jpg'} className="img-responsive"/>
+	 <img src={'https://scontent-ord1-1.xx.fbcdn.net/hphotos-xft1/t31.0-8/11057447_10156588199960171_3259912706540740208_o.jpg'} className="img-responsive"/>
 
         </div>
       </div>
