@@ -22,13 +22,21 @@ for their contributions during the past two weeks.  Say hello to your new teamma
 Time: 30 minutes
 
 * What is the name of your startup?
+Platano
 * What services does your startup provide?
+Realtime RTD data
 * Who can use the services?
+Anyone within RTD's district
 * Who can join as the service providers?
+Google, RTD. 
 * What are the main data attributes of a service provider (e.g., name, stars, location)?
+Your location, buses and their routes, and where the buses are currently.
 * Which city will your startup initially launch?
+Denver
 * What is the price for a customer to pay for a service? What are the factors determining the price?
+Eventually - customers pay a small fee to start using the product.
 * How much can a service provider earn?
+People might start using the buses more, as they will be more convenient.
 
 ## Mockup
 
