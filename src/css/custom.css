@@ -3,3 +3,7 @@
     background-image:url("../images/platano.png");
     background-repeat:no-repeat;
 }
+.banana{
+	height: auto;
+	width: 50%;
+}
