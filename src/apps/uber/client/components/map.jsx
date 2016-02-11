@@ -8,7 +8,7 @@ class MapView extends React.Component {
     const providerElements = _.map(providers, function(p,i){
       return <Marker position={p.pos} key={i}>
         <Popup>
-          <span>{JSON.stringify(p)}</span>
+          <span>{JSON.stringify(p)} p.name</span>
         </Popup>
       </Marker>
     })
