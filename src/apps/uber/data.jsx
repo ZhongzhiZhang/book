@@ -24,7 +24,7 @@ function render(){
 // DATA
 //
 
-var firebaseRef = new Firebase('https://ucdd2-book.firebaseio.com/uber')
+var firebaseRef = new Firebase('https://platano.firebaseio.com/uber')
 
 // Real-time Data (load constantly on changes)
 firebaseRef.child('providers')
