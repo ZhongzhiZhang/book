@@ -1,4 +1,4 @@
-l// a single 'data' object that holds the data of your entire app, with initial values
+// a single 'data' object that holds the data of your entire app, with initial values
 var data = {
   center: [40.006400, -105.263736], // Boulder
   providers: [],
