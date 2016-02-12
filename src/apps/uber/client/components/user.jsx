@@ -6,6 +6,7 @@ class User extends React.Component {
       // user is authenticated
       return <div>
           <h5>Hello {this.props.user.displayName}!</h5>
+          <pre>{JSON.stringify(this.props.user)}</pre>
           <a href="#" onClick={this.props.logoutAction}>Logout</a>
       </div>
     } else {
