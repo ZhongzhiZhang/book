@@ -1,45 +1,40 @@
+*
+ * Base Google Map example
+ */
+import React, {PropTypes, Component} from 'react/addons';
+import shouldPureComponentUpdate from 'react-pure-render/function';
 
-const {Map, Marker, CircleMarker, Popup, TileLayer, MapLayer}  = window.ReactLeaflet
+import GoogleMap from 'google-map-react';
+import MyGreatPlace from './my_great_place.jsx';
 
-class MapView extends React.Component {
-  render(){
+export default class SimpleMapPage extends Component {
+  static propTypes = {
+    center: PropTypes.array,
+    zoom: PropTypes.number,
+    greatPlaceCoords: PropTypes.any
+  };
 
-    const providers = this.props.providers
-    const providerElements = _.map(providers, function(p,i){
-      return <Marker position={p.pos} key={i}>
-        <Popup>
-          <span>{JSON.stringify(p)}</span>
-        </Popup>
-      </Marker>
-    })
+  static defaultProps = {
+    center: [59.938043, 30.337157],
+    zoom: 9,
+    greatPlaceCoords: {lat: 59.724465, lng: 30.080121}
+  };
 
-    let userElement
-    if (this.props.user){
-      userElement = <CircleMarker center={this.props.user.pos}/>
-    } else {
-      userElement = ''
-    }
+  shouldComponentUpdate = shouldPureComponentUpdate;
 
-    // Note: .bind(this) is important for the handler function's 'this'
-    // pointer to refer to this MapView instance
-
-    return  <Map center={this.props.center}
-          zoom={13}
-          onLeafletClick={this.handleLeafletClick.bind(this)}>
-        <TileLayer
-          url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
-        {providerElements}
-        {userElement}
-      </Map>
+  constructor(props) {
+    super(props);
   }
 
-
-  handleLeafletClick(event){
-    console.log('leaflet click event', event)
-    this.props.setUserLocationAction(event.latlng)
+  render() {
+    return (
+       <GoogleMap
+        apiKey={AIzaSyCvjx2rX763ezVHsvdemCY3Fc3vBtsEygo} // set if you need stats etc ...
+        center={this.props.center}
+        zoom={this.props.zoom}>
+        <MyGreatPlace lat={40.0066373},lng={-105.2638684} text={'A'} /* Kreyser Avrora */ />
+        <MyGreatPlace {...this.props.greatPlaceCoords} text={'B'} /* road circle */ />
+      </GoogleMap>
+    );
   }
 }
-
-MyComponents.MapView = MapView
