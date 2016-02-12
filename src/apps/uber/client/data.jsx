@@ -1,5 +1,7 @@
 // a single 'data' object that holds the data of your entire app, with initial values
 var data = {
+  lat: 40.006400,
+  lon: -105.263736,
   center: [40.006400, -105.263736], // Boulder
   providers: [],
   user: null
@@ -20,7 +22,6 @@ function render(){
   )
 }
 
-//
 // DATA
 //
 

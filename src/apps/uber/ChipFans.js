@@ -4,8 +4,8 @@ var Firebase = require('firebase');
 
 // San Francisco
 var city_location = {
-  lat: 37.78,
-  lon: -122.41
+  lat: 40.0067,
+  lon: -105.2672
 }
 
 var radius = 0.03
