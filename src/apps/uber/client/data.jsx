@@ -1,7 +1,5 @@
 // a single 'data' object that holds the data of your entire app, with initial values
 var data = {
-  lat: 40.006400,
-  lon: -105.263736,
   center: [40.006400, -105.263736], // Boulder
   providers: [],
   user: null
@@ -21,33 +19,21 @@ function render(){
     $('#app-container').get(0)
   )
 }
-
 // DATA
 
 var firebaseRef = new Firebase('https://platano.firebaseio.com')
 
 firebaseRef.on('value', function(chip) {
-
-  var loocation = []
-  chip.forEach(function(platano){
-    var building = platano.val()
-    console.log(building)
-    var lat = _.lat
-    var lon = _.long
-    var latlong = [lat, lon]
-    var circle = L.circle(latlong, 10, {
-      color: 'red',
-      fillColor: 'red',
-      fillOpacity: 1
-    })
-    loocation.push(latlong)
+  chip.forEach(function(providers){
+    
+   // data.providers.push(building)
+      data.providers = _.values(chip.val())
       render()
+    // console.log(building)
     })  
 });
+// Real-time Data (load constantly on changes)
 
-//
-// ACTIONS
-//
 
 // Actions
 actions.setUserLocation = function(latlng){
