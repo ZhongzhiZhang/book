@@ -14,7 +14,7 @@ class MapView extends React.Component {
 
     let userElement
     if (this.props.user){
-      userElement = <CircleMarker center={this.props.user.pos}/>
+      userElement = <CircleMarker center={this.props.building}/>
     } else {
       userElement = ''
     }

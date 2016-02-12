@@ -1,8 +1,3 @@
-var _ = require('lodash')
-var random_name = require('node-random-name');
-var Firebase = require('firebase');
-
-// San Francisco
 var city_location = {
   lat: 40.0067,
   lon: -105.2672

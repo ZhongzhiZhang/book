@@ -23,9 +23,24 @@ function render(){
 }
 
 // DATA
-//
 
-var firebaseRef = new Firebase('https://ucdd2-book.firebaseio.com/uber')
+var firebaseRef = new Firebase('https://platano.firebaseio.com')
+
+firebaseRef.on('value', function(chip) {
+
+  var loocation = []
+  chip.forEach(function(platano){
+    var building = platano.val()
+    console.log(building)
+    var lat = _.lat
+    var long = _.long
+    loocation.push({lat: lat, long:long })
+      render()
+    })  
+});
+
+
+
 
 // Real-time Data (load constantly on changes)
 firebaseRef.child('providers')
