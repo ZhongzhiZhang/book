@@ -33,24 +33,17 @@ firebaseRef.on('value', function(chip) {
     var building = platano.val()
     console.log(building)
     var lat = _.lat
-    var long = _.long
-    loocation.push({lat: lat, long:long })
+    var lon = _.long
+    var latlong = [lat, lon]
+    var circle = L.circle(latlong, 10, {
+      color: 'red',
+      fillColor: 'red',
+      fillOpacity: 1
+    })
+    loocation.push(latlong)
       render()
     })  
 });
-
-
-
-
-// Real-time Data (load constantly on changes)
-firebaseRef.child('providers')
-  .on('value', function(snapshot){
-
-    data.providers = _.values(snapshot.val())
-
-    render()
-
-  })
 
 //
 // ACTIONS
