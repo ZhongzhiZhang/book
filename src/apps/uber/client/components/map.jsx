@@ -23,7 +23,7 @@ class MapView extends React.Component {
     // pointer to refer to this MapView instance
 
     return  <Map center={this.props.center}
-          zoom={13}
+          zoom={14}
           onLeafletClick={this.handleLeafletClick.bind(this)}>
         <TileLayer
           url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
