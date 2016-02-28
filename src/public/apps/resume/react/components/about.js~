@@ -1,0 +1,18 @@
+MyComponents.About = React.createClass({
+
+  render: function() {
+    return (
+      <div className="card">
+        <div className="card-content">
+	<ul><li>Name: Zhongzhi Zhang</li></ul>
+	<ul><li>Major: Electrical Engineering</li></ul>
+	<ul><li>Tel: 8583332700</li></ul>
+	<ul><li>Github:  <a href="https://github.com/ZhongzhiZhang">Zhongzhi Zhang</a> </li></ul>
+	 <img src={'https://scontent-ord1-1.xx.fbcdn.net/hphotos-xft1/t31.0-8/11057447_10156588199960171_3259912706540740208_o.jpg'} className="img-responsive"/>
+
+        </div>
+      </div>
+    );
+  }
+
+});

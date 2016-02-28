@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+      <!--Import stylesheet for Leaflet to work-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+      <link rel="stylesheet" href="/css/leaflet.label.css" />
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+      <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.0/lodash.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+      <script src="https://sweltering-torch-7007.firebaseapp.com/apps/parking/js/leaflet.label.js"></script>
+
+
+    <nav>
+    <div class="nav-wrapper blue darken-1">
+      <a href="#" class="brand-logo center">Bears, Beats, Battlestar Galactica Parking</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="garages.html">Garages</a></li>
+      </ul>
+    </div>
+  </nav>
+
+      <div class="container">
+
+        <h1>Garages Map</h1>
+        <div id="map" style="height:500px"></div>
+
+
+
+      </div>
+
+
+
+      <script>
+// create a firebase reference to the root
+var ref = new Firebase('https://publicdata-parking.firebaseio.com');
+var data
+// read data from the location san_francisco/garages, only once
+ref.child('san_francisco/garages').on('value', function(snapshot){
+  data = snapshot.val()
+  console.log('data is loaded', data)
+  var garages = _.filter(data, function(d){
+      return _.has(d, 'open_spaces')
+  })
+  drawGarages(garages)
+})
+var attributionText = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a       href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
+// create the map
+var map = L.map($('#map')[0]).setView([37.78, -122.41], 13)
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: attributionText,
+    maxZoom: 18,
+    id: 'doubleshow.noeko77m',
+    accessToken: 'pk.eyJ1IjoiZG91Ymxlc2hvdyIsImEiOiJjaWZ5Y3B1eTE1MHRidWRtMG9uZXluajg4In0.u5ONW27Ly5cU7M5KYi6Y9Q'
+}).addTo(map)
+// create a layer group to hold all the markers
+var markersLayerGroup = L.layerGroup()
+// add the makers layer group to the map
+markersLayerGroup.addTo(map)
+//marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+// visualize garages on a map
+function drawGarages(garages){
+  // clear all existing markers (if any)
+  markersLayerGroup.clearLayers()
+    var minCap = Number.MAX_VALUE;
+    var maxCap = Number.MIN_VALUE;
+    var totalSpots = 0;
+    var gargageCount = 0;
+    console.log("Garages: " + garages)
+  _.forEach(garages, function(garage){
+    // var points = garage.points
+    // var latlng = [points[0], points[1]]
+    var spots = Number(garage.open_spaces);
+    var totalSpots = Number(garage.total_spaces);
+    if(spots > Number(maxCap)){
+      maxCap = spots;
+    }
+    if(spots < Number(minCap)){
+      minCap = spots;
+    }
+    totalSpots += spots;
+  })
+  console.log("Max: " + maxCap + "Min: " + minCap)
+
+
+
+
+
+  _.forEach(garages, function(garage){
+
+    var points = garage.points
+    var latlng = [points[0], points[1]]
+    var spots = Number(garage.open_spaces)
+    var name = garage.friendlyName
+
+    var onClickData= L.popup()
+    //.setLatLng(latlng)
+
+    var onClickData = ('<div class="container"><h5>'+name+'</h5><li>Open Spaces: '+garage.open_spaces+'</li><li>Total Spaces: '+garage.total_spaces+'</li>');
+    var rate = garage.rates
+
+
+    _.forEach(rate, function(rate){
+      if (rate.DESC) {
+        onClickData = onClickData +'<li>'+ rate.DESC;
+      }
+      else {
+        onClickData = onClickData + '<li>'+ rate.BEG + '-' + rate.END;
+      }
+      onClickData = onClickData + ': $' + rate.RATE + '</li>';
+
+    })
+
+    // // Compare this data point to the min/max.
+    var ratio = garage.open_spaces/garage.total_spaces
+
+    // // Some fancy math for determing the size of the circle. Also a check to modify any that would be too small.
+    var size = 200 * ratio
+      if (size < 70) size = 70; //minimum size
+
+      var circleColor;
+      if (ratio <0.50){
+        circleColor = 'red';
+        fillColor='rgb(178,34,34)';}
+      else if (0.50<= ratio && ratio <0.75){
+        circleColor = 'yellow';
+        fillColor='rgb(189,183,107)';}
+      else{
+        circleColor='green'
+        fillColor='rgb(34,139,34)';}
+
+     var circle = L.circle(latlng, size, {
+        color: circleColor,
+        fillColor: fillColor, //'#f03',
+        fillOpacity: 0.7
+    }).bindLabel(name + " contains " + spots + " spots.")
+    .bindPopup(onClickData)
+    // add the circle layer to the makers layer group
+    markersLayerGroup.addLayer(circle)
+  })
+}
+      </script>
+    </body>
+  </html>
+

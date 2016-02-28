@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    </head>
+
+    <body>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+      <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+      <nav>
+        <div class="nav-wrapper teal lighten-2">
+      <a href="#" class="brand-logo right">Live ChatRoom</a>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="client.html">Go To Conversations</a></li>
+            <li><a href="admin.html">Admin</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container">
+
+        <h1>Live ChatRoom</h1>
+	<div class="container">
+		<a class="waves-effect waves-light btn center" href="#Topics" data-toggle="collapse"'>Show Topic List</a>
+	</div>
+
+
+        <div id = "Topics" class="row collapse">
+        <div class="col s6">
+          <div class="card blue lighten-1">
+            <div class="card-content white-text">
+              <span class="card-title">50th Super Bowl</span>
+              <p>Brief description of the topic</p>
+            </div>
+            <div class="card-action">
+
+
+		<a class="waves-effect waves-light btn center" href="#Participants" data-toggle="collapse">Show Chat Participant</a>
+		<a class="waves-effect waves-light btn center" href="#History" data-toggle="collapse">Show Chat History</a>
+	<div class="container">
+		<br>
+
+		<ul id = "Participants" >
+		<li xmlns="http://www.w3.org/1999/html" >Steve Zhang</li>
+		<li xmlns="http://www.w3.org/1999/html">Zach Lamb</li>
+		<li xmlns="http://www.w3.org/1999/html">Sigrunn Sky</li>
+		</ul>
+		<br>
+		<div id = "History" class = "white black-text col s5" >
+		<br>
+		<div class = "chip">
+		<span>Steve Zhang: Newton paid for his lack of experiecnes!</span>
+		</div>
+		<br>
+		<br>
+		<div class = "chip">
+		<span>Zach Lamb: Peyton Manning is so lucky!</span>
+		<br>
+		<br>
+		</div>
+		<br>
+		</div>
+
+
+		
+	</div>
+
+            </div>
+          </div>
+        </div>
+
+		
+
+      </div>
+
+      </div>
+
+
+      <script>
+
+        // create a firebase reference to the root
+     
+
+      </script>
+
+
+    </body>
+  </html>
+

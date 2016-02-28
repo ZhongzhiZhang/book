@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+      <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.0.0/lodash.min.js"></script>
+      
+      <nav>
+    <div class="nav-wrapper blue darken-1">
+      <a href="#" class="brand-logo center">Bears, Beats, Battlestar Galactica Parking</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+		<li><a href="index.html">Home</a></li>  
+        <li><a href="garages_map.html">Garage Maps</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div>
+      
+      <div class="container">
+
+        <h1>Garages</h1>
+        <ul class="collection" id="garages">
+        </ul>
+
+      </div>
+
+      <script>
+// create a firebase reference to the root
+var ref = new Firebase('https://publicdata-parking.firebaseio.com');
+var data
+// read data from the location san_francisco/garages, only once
+ref.child('san_francisco/garages').on('value', function(snapshot){
+  data = snapshot.val()
+          $("#garages").empty();
+  console.log('data is loaded', data)
+  // filter the data
+  var garages = _.filter(data, function(d){
+      // keep only those values (d) that has "open_spaces" as a field
+      return _.has(d, 'open_spaces')
+  })
+  displayGarages(garages)
+})
+function displayGarages(garages){
+  // lodash _.forEach https://lodash.com/docs#forEach
+	i = 0
+	j = 100
+  _.forEach(garages, function(val, key){
+    $('#garages').append('<li class="collection-item"><h3>' + val.friendlyName + '</h3><p>Open Spaces: '+val.open_spaces+'</p>'+'<p>Total Spaces: '+val['total_spaces']+'</p>'+'<li id = '+i+' class = "collection-item">  </li>'+'<li id = '+j+' class = "collection-item">  </li>'+'</li>')
+ if(val.hours.BEG)
+{	$('#'+i+'').append('<li class="collection-item">'+val.hours.FROM+': '+val.hours.BEG+'</li>')}
+else{
+for(var hourNumber in val.hours){
+	var hour = val.hours[hourNumber]
+	if(hour.TO)
+	   {
+		$('#'+i+'').append('<li class="collection-item">'+hour.FROM+'~'+hour.TO+': '+hour.BEG+'~'+hour.END+'</li>')
+	   }
+	   else {$('#'+i+'').append('<li class="collection-item">'+hour.FROM+': '+hour.BEG+'</li>')}
+	}
+}
+for(var rateNumber in val.rates){
+	var rate = val.rates[rateNumber]
+	if(rate.BEG)
+	{
+		$('#'+j+'').append('<li class="collection-item">'+''+rate.BEG+' ~ '+rate.END+' '+'$'+rate.RATE+' '+rate.RQ+'</li>')
+	}
+	else if((rate.DESC)&&(rate.RQ))
+		$('#'+j+'').append('<li class="collection-item">'+''+rate.DESC+' '+'$'+rate.RATE+' '+rate.RQ+'</li>')
+		else{$('#'+j+'').append('<li class="collection-item">'+''+rate.DESC+' '+'$'+rate.RATE+'</li>')}
+	}
+		i = i+1
+		j = j+1
+  })
+}
+      </script>
+    </body>
+  </html>
+

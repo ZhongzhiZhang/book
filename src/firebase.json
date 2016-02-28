@@ -1,0 +1,9 @@
+{
+  "firebase": "ucdd-learn",
+  "public": "public",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
