@@ -25,27 +25,21 @@
       </div>
 
       <script>
-
 // create a firebase reference to the root
 var ref = new Firebase('https://publicdata-parking.firebaseio.com');
-
 var data
-
 // read data from the location san_francisco/garages, only once
 ref.child('san_francisco/garages').on('value', function(snapshot){
   data = snapshot.val()
           $("#garages").empty();
   console.log('data is loaded', data)
-
   // filter the data
   var garages = _.filter(data, function(d){
       // keep only those values (d) that has "open_spaces" as a field
       return _.has(d, 'open_spaces')
   })
-
   displayGarages(garages)
 })
-
 function displayGarages(garages){
   // lodash _.forEach https://lodash.com/docs#forEach
 	i = 0
@@ -53,33 +47,29 @@ function displayGarages(garages){
   _.forEach(garages, function(val, key){
     $('#garages').append('<li class="collection-item">' + val.friendlyName + '<p>Open Spaces: '+val.open_spaces+'</p>'+'<p>Total Spaces: '+val['total_spaces']+'</p>'+'<li id = '+i+' class = "collection-item">  </li>'+'<li id = '+j+' class = "collection-item">  </li>'+'</li>')
  if(val.hours.BEG)
-{	$('#'+i+'').append('<li class="collection-item">'+val.hours.FROM+': '+val.hours.BEG+'~'+val.hours.END+'</li>')}
+{	$('#'+i+'').append('<li class="collection-item">'+val.hours.FROM+': '+val.hours.BEG+'</li>')}
 else{
-
 for(var hourNumber in val.hours){
 	var hour = val.hours[hourNumber]
 	if(hour.TO)
 	   {
 		$('#'+i+'').append('<li class="collection-item">'+hour.FROM+'~'+hour.TO+': '+hour.BEG+'~'+hour.END+'</li>')
 	   }
-	   else {$('#'+i+'').append('<li class="collection-item">'+hour.FROM+': '+hour.BEG+'~'+hour.END+'</li>')}
+	   else {$('#'+i+'').append('<li class="collection-item">'+hour.FROM+': '+hour.BEG+'</li>')}
 	}
 }
-
 for(var rateNumber in val.rates){
 	var rate = val.rates[rateNumber]
 	if(rate.BEG)
 	{
 		$('#'+j+'').append('<li class="collection-item">'+''+rate.BEG+' ~ '+rate.END+' '+'$'+rate.RATE+' '+rate.RQ+'</li>')
 	}
-	else if(rate.DESC)
+	else if((rate.DESC)&&(rate.RQ))
 		$('#'+j+'').append('<li class="collection-item">'+''+rate.DESC+' '+'$'+rate.RATE+' '+rate.RQ+'</li>')
+		else{$('#'+j+'').append('<li class="collection-item">'+''+rate.DESC+' '+'$'+rate.RATE+'</li>')}
 	}
-
 		i = i+1
-
 		j = j+1
-
   })
 }
       </script>

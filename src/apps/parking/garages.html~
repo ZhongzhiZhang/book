@@ -73,7 +73,7 @@ for(var rateNumber in val.rates){
 		$('#'+j+'').append('<li class="collection-item">'+''+rate.BEG+' ~ '+rate.END+' '+'$'+rate.RATE+' '+rate.RQ+'</li>')
 	}
 	else if(rate.DESC)
-		$('#'+j+'').append('<li class="collection-item">'+''+rate.DESC+' '+'$'+rate.RATE+' '+rate.RQ+'</li>')
+		$('#'+j+'').append('<li class="collection-item">'+''+rate.DESC+'$'+rate.RATE+' '+rate.RQ+'</li>')
 	}
 
 		i = i+1
